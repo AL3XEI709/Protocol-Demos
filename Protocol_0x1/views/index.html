@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center-text colored-text">Guess Number (No Trick)</h1>
+        <div class="input-container">
+            <h2 class="center-text colored-text">Input your nonce</h2>
+            <input type="text" id="Nonce" name="Nonce" placeholder="Input Nonce">
+            <button id="submitNonce">Submit</button>
+            <div id="responseNonce"></div>
+        </div>
+        <div class="input-container">
+            <h2 class="center-text colored-text">Guess a number</h2>
+            <input type="text" id="Guess" name="Guess" placeholder="Input Guess">
+            <button id="submitGuess">Submit</button>
+            <div id="responseGuess"></div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#submitNonce").click(function () {
+                var data = $("#Nonce").serialize();
+
+                $.ajax({
+                    type: "POST", 
+                    url: "/api/nonce",
+                    data: data,  
+                    success: function (data) {
+                        if(data.check == "true"){
+                            alert(data["msg"])
+                            $("#responseNonce").html(data.enc);
+                        }else{
+                            alert(data["msg"])
+                            $("#responseNonce").html("Error: " + data.msg);
+                        }
+                    }
+                });
+            });
+
+            $("#submitGuess").click(function () {
+                var data = $("#Guess").serialize();
+
+                $.ajax({
+                    type: "POST", 
+                    url: "/api/guess",
+                    data: data,  
+                    success: function (data) {
+                        if(data.check == "true"){
+                            alert(data["msg"])
+                            $("#responseGuess").html(data.enc);
+                        }else{
+                            alert(data["msg"])
+                            $("#responseGuess").html("Error: " + data.msg);
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

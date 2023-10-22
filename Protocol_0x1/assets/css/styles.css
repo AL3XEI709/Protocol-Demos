@@ -1,0 +1,47 @@
+body {
+    background-color: #f0f0f0; 
+}
+
+/* 其他样式规则不变 */
+.container {
+    text-align: center;
+    margin: 10% auto;
+    max-width: 400px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.colored-text {
+    color: #336699;
+}
+
+.input-container {
+    margin: 20px 0;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center; 
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #336699;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #204567;
+}
