@@ -15,6 +15,7 @@ type PubController struct {
 var RandX int 
 var KeyB string 
 var HashC string 
+
 func SendJsonBack(feedback string, check string, enc string, c *gin.Context) {
 	messageMap := map[string]interface{}{
 		"msg":   feedback,
@@ -46,7 +47,7 @@ func (pc PubController) NceGen(c *gin.Context) {
 		feedback = "Give me an Integer."
 		check = "false"
 	} else {
-		if Nce > 4294967295 {
+		if Nce > (1<<33-1) {
 			feedback = "Give me something smaller." 
 			check = "false"
 		} else {
