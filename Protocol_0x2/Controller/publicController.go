@@ -32,7 +32,15 @@ func (pc PubController) SecShr(c *gin.Context) {
 	fmt.Println("Secret:", sec) 
 	share_err := c.PostForm("share") 
 	shr, ShrFeedback, ShrCheck := Mycrt.CheckAtoi(share_err)
-	fmt.Println("Share up limit:", shr)  
+	fmt.Println("Share total:", shr)
+	lim_err := c.PostForm("limit") 
+	lim, LimFeedback, LimCheck := Mycrt.CheckAtoi(secret_err)  
+	fmt.Println("Recover limit:", lim) 
+	if lim > shr {
+		ShrCheck = "false" 
+		ShrFeedback = "lim should be smaller than shr." 
+	}
+	
 	
 	
 

@@ -3,6 +3,7 @@ package Mycrt
 import (
 	"strconv" 
 	"crypto/rand"
+	"math/bits"
 )
 
 func CheckAtoi(x_err string) (int, string, string) {
@@ -24,3 +25,16 @@ func CheckAtoi(x_err string) (int, string, string) {
 	return x, feedback, check 
 }
 
+func GenShare(sec int, shr int, lim int) []int {
+	var ps []int 
+
+	LenShr := bits.OnesCount(uint(sec)) / (lim - 1)   
+	source := rand.Reader  
+	for i := 0; i < shr; i++ {
+		prime, _ := rand.Prime(source, LenShr) 
+		ps[i] = prime 
+	}
+	return ps 
+
+
+}
