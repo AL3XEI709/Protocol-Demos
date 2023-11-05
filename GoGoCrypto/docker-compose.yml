@@ -1,0 +1,8 @@
+version: '3'
+services:
+  gin-app:
+    build:
+      context: .
+    ports:
+      - "7842:7842"
+    restart: always
