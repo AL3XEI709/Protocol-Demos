@@ -24,24 +24,7 @@ func (pc PubController) Router(pr *gin.Engine) {
 	pr.POST("/api/sec", pc.SecShr)
 }
 
-func (pc PubController) SecShr(c *gin.Context) {
-	var output string 
-
-	secret_err := c.PostForm("secret") 
-	sec, SecFeedback, SecCheck := Mycrt.CheckAtoi(secret_err)
-	fmt.Println("Secret:", sec) 
-	share_err := c.PostForm("share") 
-	shr, ShrFeedback, ShrCheck := Mycrt.CheckAtoi(share_err)
-	fmt.Println("Share total:", shr)
-	lim_err := c.PostForm("limit") 
-	lim, LimFeedback, LimCheck := Mycrt.CheckAtoi(secret_err)  
-	fmt.Println("Recover limit:", lim) 
-	if lim > shr {
-		ShrCheck = "false" 
-		ShrFeedback = "lim should be smaller than shr." 
-	}
-	
-	
-	
-
+func (pc PubController) Room(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", gin.H{"ping": "pong"}) 
 }
+

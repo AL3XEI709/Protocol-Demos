@@ -4,8 +4,10 @@ import (
 	"strconv" 
 	"crypto/rand"
 	"math/big"
-	"fmt"
+	//"fmt"
 )
+
+var prime int = 4294967291
 
 func CheckAtoi(x_err string) (int, string, string) {
 	var feedback string 
@@ -26,43 +28,50 @@ func CheckAtoi(x_err string) (int, string, string) {
 	return x, feedback, check 
 }
 
-//source := rand.Reader  
-//for i := 0; i < shr; i++ {
-//prime, _ := rand.Prime(source, LenShr)  
-
-func isPrime(num *big.Int) bool {
-	if num.Cmp(big.NewInt(1)) <= 0 {
-		return false
+func ReverseArray(a []int) []int {
+	l := len(a) 
+	rev := make([]int, l) 
+	for i := 0; i < l; i ++ {
+		rev[i] = a[l-1-i]
 	}
-	// Check if the number is prime
-	return num.ProbablyPrime(20)
+	return rev 
 }
 
-func generateRandomPrimes(N int) []*big.Int {
-	primes := []*big.Int{}
-	for len(primes) < N {
-		num, err := rand.Prime(rand.Reader, 1024) // Generate a random 1024-bit prime
-		if err != nil {
-			fmt.Println("Error generating prime:", err)
-			continue
-		}
-		if isPrime(num) {
-			primes = append(primes, num)
-		}
+func EvalAt(poly []int, x int, prime int) int {
+	accum := 0 
+	poly = ReverseArray(poly) 
+	for _, coeff := range poly {
+		accum *= x 
+		accum += coeff 
+		accum %= prime 
 	}
-	return primes
+	return accum 
 }
 
-func findPrimes(S *big.Int, N, L int) []*big.Int {
-	primes := generateRandomPrimes(N)
-	for i := 0; i < N-L+1; i++ {
-		product := big.NewInt(1)
-		for j := i; j < i+L; j++ {
-			product.Mul(product, primes[j])
+func extendedGCD(a, b int) (int, int) {
+	var quot int 
+    x := 0 
+	last_x := 1 
+	y := 1
+	last_y := 0 
+	for {
+		if b == 0 {
+			break
 		}
-		if product.Cmp(S) == -1 {
-			return primes[i : i+L]
-		}
+		quot = a/b 
+		a,b = b, a%b 
+		x, last_x = last_x - quot * x, x
+        y, last_y = last_y - quot * y, y
 	}
-	return nil
+	return last_x, last_y 
+
+}
+
+func MakeRandomShares(secret, minimum, shares int) []int {
+	var poly []int 
+	var points []int 
+	poly[0] = secret 
+	for i := 0; i < minimum-1; i ++ {
+		poly[i], _ = rand.Int(rand.Reader, big.NewInt(prime-1)) 
+	}
 }
