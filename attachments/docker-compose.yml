@@ -1,0 +1,10 @@
+version: '2.1'
+services:
+  chall:
+    build:
+      context: .
+    init: true
+    environment:
+      - FLAG=SYC{G00d!_u_4r3_Qu33n_0f_Quadratic}
+    ports:
+      - 12345:12345
