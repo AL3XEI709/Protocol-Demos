@@ -10,6 +10,8 @@ import (
 type PubController struct {
 }
 
+
+
 func SendJsonBack(feedback string, check string, enc string, c *gin.Context) {
 	messageMap := map[string]interface{}{
 		"msg":   feedback,
@@ -28,3 +30,9 @@ func (pc PubController) Room(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", gin.H{"ping": "pong"}) 
 }
 
+func(pc PubController) SecShr(c *gin.Context) {
+	var feedback string
+	var check string
+	var output string 
+	
+}
