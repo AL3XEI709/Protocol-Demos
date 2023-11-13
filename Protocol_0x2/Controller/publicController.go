@@ -35,4 +35,7 @@ func(pc PubController) SecShr(c *gin.Context) {
 	var check string
 	var output string 
 	
+	
+
+	
 }
